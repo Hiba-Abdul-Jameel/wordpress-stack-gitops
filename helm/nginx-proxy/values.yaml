@@ -1,32 +1,34 @@
-# Docker image settings
+# values.yaml
+
+upstream:
+  url: "wordpress-service"  # The service name of the application to proxy
+  port: 80                 # The port of the upstream service
+
+replicaCount: 1           # Number of replicas for the nginx-proxy deployment
+
+image:
+  repository: hibajameel/nginx-proxy
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP         # The type of service (ClusterIP, NodePort, LoadBalancer)
+  port: 80                # The port exposed by the service
+
 labels:
   id: "C0910893"
   app: "nginx-proxy"
   env: "dev"
 
-image:
-  repository: hibajameel/custom-nginx
-  tag: latest
-  pullPolicy: IfNotPresent
+resources:                # Optional: Specify resource limits/requests for containers
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+  requests:
+    cpu: "250m"
+    memory: "128Mi"
 
-# Service settings
-service:
-  type: ClusterIP
-  port: 80
 
-# Nginx configuration
-nginxConfig: |
-  server {
-    listen 80;
-    location / {
-      proxy_pass http://wordpress-app.wpapp.svc.cluster.local:80;
-      proxy_set_header Host $http_host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-      proxy_set_header X-Forwarded-Port $server_port;
-      proxy_set_header X-Forwarded-Host $host;
-    }
-  }
+
 
 

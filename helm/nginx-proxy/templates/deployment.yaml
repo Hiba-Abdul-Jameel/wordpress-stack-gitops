@@ -4,20 +4,27 @@ metadata:
   name: nginx-proxy
   namespace: proxy
   labels:
-    {{- include "nginx-proxy.labels" . | nindent 4 }}
+    id: "C0910893"
+    app: "nginx-proxy"
+    env: "dev"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      id: C0910893
+      id: "C0910893"
+      app: "nginx-proxy"
+      env: "dev"
   template:
     metadata:
       labels:
-        {{- include "nginx-proxy.labels" . | nindent 8 }}
+        id: "C0910893"
+        app: "nginx-proxy"
+        env: "dev"
     spec:
       containers:
       - name: nginx-proxy
         image: hibajameel/nginx-proxy:latest
         ports:
         - containerPort: 80
+
 
