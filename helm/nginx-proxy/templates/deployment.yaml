@@ -2,26 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-proxy
+  namespace: proxy
+  labels:
+    {{- include "nginx-proxy.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      app: nginx-proxy
+      id: C0910893
   template:
     metadata:
       labels:
-        app: nginx-proxy
+        {{- include "nginx-proxy.labels" . | nindent 8 }}
     spec:
       containers:
-      - name: nginx
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+      - name: nginx-proxy
+        image: hibajameel/nginx-proxy:latest
         ports:
         - containerPort: 80
-        volumeMounts:
-        - name: nginx-config-volume
-          mountPath: /etc/nginx/conf.d
-      volumes:
-      - name: nginx-config-volume
-        configMap:
-          name: nginx-proxy-config
+
