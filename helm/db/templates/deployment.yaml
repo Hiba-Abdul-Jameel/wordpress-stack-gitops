@@ -27,5 +27,9 @@ spec:
               optional: false
         ports:
         - containerPort: {{ .Values.db.containerPorts.mysql }}
+<<<<<<< HEAD
         #volumeMounts:
 
+=======
+       
+>>>>>>> b2d5550f9c34ca743ed08d489e1bea2ae465e845
