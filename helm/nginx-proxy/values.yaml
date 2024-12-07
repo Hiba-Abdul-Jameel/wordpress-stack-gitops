@@ -1,34 +1,33 @@
-# values.yaml
-
+# Upstream service information to proxy
 upstream:
   url: "wordpress-service"  # The service name of the application to proxy
   port: 80                 # The port of the upstream service
 
+# Deployment configuration
 replicaCount: 1           # Number of replicas for the nginx-proxy deployment
 
+# Docker image configuration
 image:
   repository: hibajameel/nginx-proxy
   tag: latest
   pullPolicy: IfNotPresent
 
+# Service configuration
 service:
   type: ClusterIP         # The type of service (ClusterIP, NodePort, LoadBalancer)
   port: 80                # The port exposed by the service
 
+# Labels for deployment
 labels:
   id: "C0910893"
   app: "nginx-proxy"
   env: "dev"
 
-resources:                # Optional: Specify resource limits/requests for containers
+# Resources for the container (optional)
+resources:
   limits:
     cpu: "500m"
     memory: "256Mi"
   requests:
     cpu: "250m"
     memory: "128Mi"
-
-
-
-
-
