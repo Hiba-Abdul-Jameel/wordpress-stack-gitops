@@ -1,6 +1,11 @@
 # Docker image settings
+labels:
+  id: "C0910893"
+  app: "nginx-proxy"
+  env: "dev"
+
 image:
-  repository: gcr.io/modular-edge-443800-k3/custom-nginx
+  repository: hibajameel/custom-nginx
   tag: latest
   pullPolicy: IfNotPresent
 
